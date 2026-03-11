@@ -1,0 +1,174 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      background: none; /* Rimuovi lo stile background-image dal body */
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: url('https://www.repstatic.it/content/contenthub/img/2023/01/16/132908843-3880ffc4-bc0c-4cf2-9c3b-ea0da1f444fc.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cart-data {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    h2 {
+  font-size: 40px; /* Modifica la dimensione della scritta "Carrello" */
+  margin-bottom: 10px; /* Aggiunto spazio inferiore */
+}
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .product-info {
+      border: 1px solid #444;
+      padding: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .product-info a {
+      text-decoration: none;
+    }
+
+    .product-info img {
+      width: 90px;
+      height: 90px;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+
+    .product-name {
+      font-weight: bold;
+      color: #eee;
+    }
+
+    .product-details {
+      flex-grow: 1;
+    }
+
+    .product-details span {
+      display: block;
+      margin-top: 5px;
+      color: #ccc;
+    }
+
+    .product-info .buttons-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+    }
+
+    .delete-button,
+    .order-button,
+    .clear-cart-button,
+    .view-products-button {
+      background-color: #e44d26;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-button:hover,
+    .order-button:hover,
+    .clear-cart-button:hover,
+    .view-products-button:hover {
+      background-color: #333;
+    }
+
+    .clear-cart-button {
+      margin-bottom: 20px;
+    }
+
+    .view-products-button {
+      text-align: center;
+      text-decoration: none;
+    }
+    .order-container {
+  margin-bottom: 20px; /* Aggiunto spazio tra gli ordini */
+}
+
+.order {
+  background-color: grey;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.product-item {
+  border-bottom: 1px solid #ccc; /* Aggiunto separatore tra i prodotti */
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Lista degli Ordini</h2>
+    <ng-container *ngIf="ordini$ | async as ordini; else loading">
+      <div *ngIf="ordini.length === 0">Nessun ordine disponibile.</div>
+      <div class="order-container" *ngFor="let ordine of ordini">
+        <div class="order">
+          <ul *ngIf="ordine.prodottiOrdineDto.length > 0">
+            <li *ngFor="let prodottiOrdine of ordine.prodottiOrdineDto" class="product-item">
+              <p><strong>Nome Prodotto:</strong> {{ prodottiOrdine.prodottoDto.nomeProdotto }}</p>
+              <p><strong>Quantità:</strong> {{ prodottiOrdine.quantita }}</p>
+              <p><strong>Prezzo:</strong> {{ ordine.prezzoTotale | currency:'EUR':'symbol'}}</p>
+              <p><strong>Data:</strong> {{ ordine.dataOrdine }}</p>
+            </li>
+          </ul>
+          <ng-template #noProducts>
+            <p>Nessun prodotto disponibile per questo ordine.</p>
+          </ng-template>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="loading">Caricamento...</div>
+    </ng-template>
+  </div>
+</body>

@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">EcommerceGranata</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+ 
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+ 
+        <li class="nav-item" *ngIf="!isAdmin && !isUser">
+          <a class="nav-link" href="#" routerLink="register">Registrazione</a>
+        </li>
+        <li class="nav-item" *ngIf="!isAdmin && !isUser">
+          <a class="nav-link" href="#" routerLink="login">Login</a>
+        </li>
+ 
+        <li class="nav-item" *ngIf="isAdmin || isUser">
+          <li class="nav-item" *ngIf="isUser">
+            <a class="nav-link" href="#" routerLink="cart">Carrello</a>
+          </li>
+       
+ 
+        <li class="nav-item" *ngIf="isUser">
+          <a class="nav-link" href="#" routerLink="order">Ordini</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a class="nav-link" href="#" routerLink="products/add">Aggiungi prodotto</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isAdmin || isUser">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ userDetails?.email }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#" routerLink="user">Impostazioni Account</a></li>
+            <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

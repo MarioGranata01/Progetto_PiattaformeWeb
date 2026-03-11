@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+   body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: none;
+  margin-bottom: 20px;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url('https://www.repstatic.it/content/contenthub/img/2023/01/16/132908843-3880ffc4-bc0c-4cf2-9c3b-ea0da1f444fc.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.search-bar {
+  background-color: black;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px;
+  border: 3px solid #000;
+  border-radius: 5px;
+  margin-right: 10px;
+  color: #333;
+  font-size: 14px;
+  background-color: white;
+  width: 100%;
+  position: relative;
+  top: 5px;
+}
+
+.search-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 20px;
+}
+.product-card {
+  position: relative;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid #000;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.product-details {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.product-buttons {
+  display: flex;
+  justify-content: space-around;
+  border-top: 2px solid #000;
+  border-radius: 0 0 8px 8px;
+  margin-top: 5px;
+  padding: 5px 10px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="search-bar">
+    <input type="text" placeholder="Cerca prodotti" [(ngModel)]="searchTerm" (input)="filterProducts()" class="search-input" />
+    <button class="search-button">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+
+  <div class="product-grid">
+    <div *ngFor="let product of filteredProdotti" class="product-card">
+      <a [routerLink]="['/products', product.id]" *ngIf="!isAdmin">
+        <img [src]="product.immagine" alt="{{ product.nomeProdotto }}" class="product-image" />
+      </a>
+      <a *ngIf="isAdmin">
+        <img [src]="product.immagine" alt="{{ product.nomeProdotto }}" class="product-image" />      
+      </a>
+
+      <div class="product-details">
+        <h3>{{ product.nomeProdotto }}</h3>
+        <p>{{ product.descrizione }}</p>
+        <p>Prezzo: {{ product.prezzo | currency:'EUR':'symbol' }}</p>
+        <p>Quantità in magazzino: {{ product.quantita }}</p>
+      </div>
+      <div *ngIf="isAdmin" class="product-buttons">
+        <button (click)="updateProduct(product.id)" >Aggiorna</button>
+        <button (click)="removeProduct(product.id)">Cestina</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

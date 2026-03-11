@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: none; /* Rimuovi lo stile background-image dal body */
+      margin-bottom: 20px; /* Aggiunto margine inferiore al body */
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: url('https://www.repstatic.it/content/contenthub/img/2023/01/16/132908843-3880ffc4-bc0c-4cf2-9c3b-ea0da1f444fc.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    form {
+      margin-bottom: 20px; /* Aggiunto margine inferiore alla form */
+    }
+
+    .product-info {
+      border: 2px solid #444;
+      padding: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .product-info a {
+      text-decoration: none;
+    }
+
+    .product-info img {
+      width: 90px;
+      height: 90px;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+
+    .product-name {
+      font-weight: bold;
+      color: #eee;
+    }
+
+    .product-details {
+      flex-grow: 1;
+    }
+
+    .product-details span {
+      display: block;
+      margin-top: 5px;
+      color: #ccc;
+    }
+
+    .product-info .buttons-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+    }
+
+    .delete-button,
+    .order-button,
+    .clear-cart-button,
+    .view-products-button {
+      background-color: #e44d26;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-button:hover,
+    .order-button:hover,
+    .clear-cart-button:hover,
+    .view-products-button:hover {
+      background-color: #333;
+    }
+
+    .clear-cart-button {
+      margin-bottom: 20px;
+    }
+
+    .view-products-button {
+      text-align: center;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+    <form (ngSubmit)="addProduct()">
+      <label for="nomeProdotto">Nome del prodotto:</label>
+      <input type="text" id="nomeProdotto" name="nomeProdotto" [(ngModel)]="nuovoProdottoDto.nomeProdotto" required>
+    
+      <label for="descrizione">Descrizione del prodotto:</label>
+      <input type="text" id="descrizione" name="descrizione" [(ngModel)]="nuovoProdottoDto.descrizione" required>
+    
+      <label for="immagine">URL dell'immagine:</label>
+      <input type="text" id="immagine" name="immagine" [(ngModel)]="nuovoProdottoDto.immagine" required>
+    
+      <label for="prezzo">Prezzo del prodotto:</label>
+      <input type="number" id="prezzo" name="prezzo" [(ngModel)]="nuovoProdottoDto.prezzo" required>
+    
+      <label for="quantita">Quantità in magazzino:</label>
+      <input type="number" id="quantita" name="quantita" [(ngModel)]="nuovoProdottoDto.quantita" required>
+    
+      <button type="submit">Aggiungi Prodotto</button>
+    </form>
+</body>
+</html>

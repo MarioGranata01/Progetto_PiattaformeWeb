@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: none;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: url('https://www.repstatic.it/content/contenthub/img/2023/01/16/132908843-3880ffc4-bc0c-4cf2-9c3b-ea0da1f444fc.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .product-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .toolbar-container {
+      position: relative;
+      background-color: #333; /* Grigio scuro */
+      margin-bottom: 2px;
+      color: white;
+    }
+
+    .back-button {
+      color: black;
+    }
+
+    .toolbar-title {
+      margin-left: 8px;
+    }
+
+    .page-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .product-details {
+      text-align: center;
+    }
+
+    .product-image {
+      width: 200px;
+      border-radius: 8px;
+    }
+
+    .addToCart {
+      margin-top: 10px;
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .product-background {
+      background-image: url('https://www.repstatic.it/content/contenthub/img/2023/01/16/132908843-3880ffc4-bc0c-4cf2-9c3b-ea0da1f444fc.jpg');
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+  </style>
+</head>
+<body>
+  <div class="center-container">
+    <div class="product-container">
+      <mat-toolbar class="toolbar-container" color="primary">
+        <button mat-icon-button class="back-button" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span class="toolbar-title">Dettagli Prodotto</span>
+      </mat-toolbar>
+
+      <div class="page-container">
+        <div class="product-details" *ngIf="prodotto">
+          <img src="{{prodotto.immagine}}" alt="{{ prodotto.nomeProdotto }}" class="product-image" />
+          <div class="product-details">
+            <h3>{{ prodotto.nomeProdotto }}</h3>
+            <p>{{ prodotto.descrizione }}</p>
+            <p>Prezzo: {{ prodotto.prezzo | currency:'EUR':'symbol' }}</p>
+            <p>Quantità rimanente: {{ prodotto.quantita }}</p>
+            <p>Quantità da acquistare: <input type="number" [(ngModel)]="quantityToBuy" min="1" max="{{ prodotto.quantita }}" placeholder="Quantity" /></p>
+            <button mat-raised-button class="addToCart" (click)="addItemToCart()">Aggiungi al carrello</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-background"></div>
+  </div>
+</body>
+</html>

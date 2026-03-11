@@ -1,0 +1,26 @@
+<div class="container-fluid" style="background-image: url('https://www.repstatic.it/content/contenthub/img/2023/01/16/132908843-3880ffc4-bc0c-4cf2-9c3b-ea0da1f444fc.jpg'); background-repeat: no-repeat; background-size: cover; height: 95vh; display: flex; align-items: center; justify-content: center;">
+    
+    <div class="col-md-4" style="background-color: #333; padding: 20px; border-radius: 10px; color: white;">
+      <h1 class="display-5">Login</h1>
+      <form (ngSubmit)="login()">
+          <div class="mb-3">
+              <label for="username" class="form-label small" style="color: white; font-size: 12px;">Username</label>
+              <input type="username" class="form-control" id="username" [(ngModel)]="username" name="username" style="color: black;">
+          </div>
+          <div class="mb-3">
+              <label for="password" class="form-label small" style="color: white; font-size: 12px;">Password</label>
+              <div class="input-group">
+                <input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control" id="password" [(ngModel)]="password" name="password" style="color: black;">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" (click)="togglePasswordVisibility()">
+                        <i class="bi bi-eye{{ passwordVisible ? '-slash' : '' }}"></i>
+                    </button>
+              </div>
+          </div>
+          <div class="button-container">
+          <button type="submit" class="btn btn-primary">Login</button>
+          <br>
+          <a class="register-link" [routerLink]="['/register']">Registrati</a>
+        </div>
+      </form>
+  </div>
+</div>
